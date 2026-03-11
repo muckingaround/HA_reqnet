@@ -22,7 +22,7 @@ async def async_setup_entry(
     config_entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Konfiguracja platformy czujników binarnych Reqnet."""
+    """Set up Reqnet binary sensor platform."""
     coordinator: ReqnetDataCoordinator = hass.data[DOMAIN][config_entry.entry_id]
 
     binary_sensors = [
@@ -44,7 +44,7 @@ async def async_setup_entry(
 
 
 class ReqnetBinarySensor(CoordinatorEntity, BinarySensorEntity):
-    """Reprezentacja czujnika binarnego Reqnet."""
+    """Representation of a Reqnet Binary Sensor."""
     _attr_has_entity_name = True
 
     def __init__(
@@ -55,7 +55,7 @@ class ReqnetBinarySensor(CoordinatorEntity, BinarySensorEntity):
         on_icon: str | None,
         off_icon: str | None,
     ) -> None:
-        """Inicjalizacja czujnika binarnego."""
+        """Initialize the binary sensor."""
         super().__init__(coordinator)
         self.entity_description = entity_description
         self._index = index
@@ -73,7 +73,7 @@ class ReqnetBinarySensor(CoordinatorEntity, BinarySensorEntity):
 
     @property
     def is_on(self) -> bool | None:
-        """Zwraca true jeśli czujnik binarny jest włączony."""
+        """Return true if the binary sensor is on."""
         if self.coordinator.data is None or self._index >= len(self.coordinator.data):
             return None
         # Zakładamy, że 1 to True (on), a 0 to False (off)
@@ -81,7 +81,7 @@ class ReqnetBinarySensor(CoordinatorEntity, BinarySensorEntity):
 
     @property
     def icon(self):
-        """Zwraca ikonę czujnika binarnego."""
+        """Return the icon of the binary sensor."""
         if self.is_on:
             return self._on_icon
         return self._off_icon

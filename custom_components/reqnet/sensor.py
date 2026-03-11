@@ -100,7 +100,7 @@ async def async_setup_entry(
     config_entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Konfiguracja platformy sensorów Reqnet."""
+    """Set up Reqnet sensor platform."""
     coordinator: ReqnetDataCoordinator = hass.data[DOMAIN][config_entry.entry_id]
 
     entities_to_add = []
@@ -133,7 +133,7 @@ class ReqnetSensor(CoordinatorEntity[ReqnetDataCoordinator], SensorEntity):
         device_class: SensorDeviceClass | None = None,
         entity_category: EntityCategory | None = None,
     ) -> None:
-        """Inicjalizacja sensora."""
+        """Initialize the sensor."""
         super().__init__(coordinator)
         self._index = index
 
@@ -167,7 +167,7 @@ class ReqnetSensor(CoordinatorEntity[ReqnetDataCoordinator], SensorEntity):
 
     @property
     def native_value(self):
-        """Zwraca stan sensora."""
+        """Return the state of the sensor."""
         if (
             self.coordinator.data is None
             or not isinstance(self.coordinator.data, list)
@@ -180,7 +180,7 @@ class ReqnetSensor(CoordinatorEntity[ReqnetDataCoordinator], SensorEntity):
 
         value = self.coordinator.data[self._index]
 
-        # Mapowanie wartości na klucze tłumaczeń stanu
+        # Mapowanie wartości dla specyficznych sensorów
         # API Index 1 (Python index 0): Status urządzenia
         if self._index == 0:
             return "on" if value == 1 else "off"
