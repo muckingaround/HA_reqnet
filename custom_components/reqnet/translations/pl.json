@@ -44,7 +44,7 @@
           "manual_mode": "Tryb ręczny",
           "intelligent_mode": "Tryb inteligentny",
           "efficiency_measurement_mode": "Tryb pomiaru wydajności",
-          "unknown_mode": "Nieznany tryb"
+          "unknown_mode": "Nieznany tryb ({value})"
         }
       },
       "heating_cooling_status": {
@@ -53,7 +53,7 @@
           "inactive": "Nieaktywna",
           "heating": "Grzanie",
           "cooling": "Chłodzenie",
-          "unknown_status": "Nieznany status"
+          "unknown_status": "Nieznany status ({value})"
         }
       },
       "device_model": { "name": "Model urządzenia" },
@@ -76,7 +76,7 @@
           "open_manual": "Otwarty (ręcznie)",
           "closed_auto": "Zamknięty (auto)",
           "open_auto": "Otwarty (auto)",
-          "unknown_status": "Nieznany status"
+          "unknown_status": "Nieznany status ({value})"
         }
       },
       "error_code": { "name": "Kod błędu" },
@@ -103,7 +103,7 @@
         "state": {
           "left": "Lewy",
           "right": "Prawy",
-          "unknown": "Nieznany"
+          "unknown": "Nieznany ({value})"
         }
       },
       "overpressure_coefficient": { "name": "Współczynnik nadciśnienia" },

@@ -44,7 +44,7 @@
           "manual_mode": "Manual mode",
           "intelligent_mode": "Intelligent mode",
           "efficiency_measurement_mode": "Efficiency measurement mode",
-          "unknown_mode": "Unknown mode"
+          "unknown_mode": "Unknown mode ({value})"
         }
       },
       "heating_cooling_status": {
@@ -53,7 +53,7 @@
           "inactive": "Inactive",
           "heating": "Heating",
           "cooling": "Cooling",
-          "unknown_status": "Unknown status"
+          "unknown_status": "Unknown status ({value})"
         }
       },
       "device_model": { "name": "Device model" },
@@ -76,7 +76,7 @@
           "open_manual": "Open (manual)",
           "closed_auto": "Closed (auto)",
           "open_auto": "Open (auto)",
-          "unknown_status": "Unknown status"
+          "unknown_status": "Unknown status ({value})"
         }
       },
       "error_code": { "name": "Error code" },
@@ -103,7 +103,7 @@
         "state": {
           "left": "Left",
           "right": "Right",
-          "unknown": "Unknown"
+          "unknown": "Unknown ({value})"
         }
       },
       "overpressure_coefficient": { "name": "Overpressure coefficient" },

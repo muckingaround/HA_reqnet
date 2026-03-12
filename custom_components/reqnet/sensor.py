@@ -26,7 +26,8 @@ from .coordinator import ReqnetDataCoordinator # Zakładam, że koordynator jest
 
 _LOGGER = logging.getLogger(__name__)
 
-# Definicje sensorów: (index_python, translation_key, jednostka, ikona, klasa_urządzenia, kategoria_encji)
+# Definicje sensorów:
+# (index_python (API_Index - 1), translation_key, jednostka, ikona, klasa_urządzenia, kategoria_encji)
 SENSOR_DEFINITIONS: list[tuple[int, str, str | None, str | None, SensorDeviceClass | None, EntityCategory | None]] = [
     # --- Podstawowe odczyty ---
     (0, "device_status", None, "mdi:power", None, None), # API Index 1
@@ -77,14 +78,14 @@ SENSOR_DEFINITIONS: list[tuple[int, str, str | None, str | None, SensorDeviceCla
     (82, "extraction_fan_power", UnitOfPower.WATT, "mdi:lightning-bolt", SensorDeviceClass.POWER, None), # API Index 83
 
     # --- Ustawienia ---
-    (67, "comfort_temperature_setpoint", UnitOfTemperature.CELSIUS, "mdi:thermometer-box", SensorDeviceClass.TEMPERATURE, None),
-    (69, "co2_sensitivity", None, "mdi:molecule-co2", None, None),
-    (70, "higro_sensitivity", None, "mdi:water-opacity", None, None),
+    (67, "comfort_temperature_setpoint", UnitOfTemperature.CELSIUS, "mdi:thermostat-box", SensorDeviceClass.TEMPERATURE, None), # API Index 68
+    (69, "co2_sensitivity", None, "mdi:molecule-co2", None, None), # API Index 70 (jednostka nieznana z API)
+    (70, "higro_sensitivity", None, "mdi:water-opacity", None, None), # API Index 71 (jednostka nieznana z API)
 
     # --- Wersje oprogramowania (diagnostyczne) ---
-    (90, "firmware_version_major", None, "mdi:chip", None, EntityCategory.DIAGNOSTIC),
-    (91, "firmware_version_build", None, "mdi:chip", None, EntityCategory.DIAGNOSTIC),
-    (93, "firmware_version_wifi", None, "mdi:wifi", None, EntityCategory.DIAGNOSTIC),
+    (90, "firmware_version_major", None, "mdi:chip", None, EntityCategory.DIAGNOSTIC), # API Index 91
+    (91, "firmware_version_build", None, "mdi:chip", None, EntityCategory.DIAGNOSTIC), # API Index 92
+    (93, "firmware_version_wifi", None, "mdi:wifi", None, EntityCategory.DIAGNOSTIC), # API Index 94
 
     # --- Współczynniki wydajności dla funkcji (opcjonalne) ---
     # (16, "Wydajność Szybkie grzanie", PERCENTAGE, "mdi:fire", None, None), # API Index 17
@@ -131,7 +132,7 @@ class ReqnetSensor(CoordinatorEntity[ReqnetDataCoordinator], SensorEntity):
         unit: str | None,
         icon: str | None,
         device_class: SensorDeviceClass | None = None,
-        entity_category: EntityCategory | None = None,
+        entity_category: EntityCategory | None = None, # POPRAWIONE TYPOWANIE
     ) -> None:
         """Initialize the sensor."""
         super().__init__(coordinator)
@@ -179,6 +180,7 @@ class ReqnetSensor(CoordinatorEntity[ReqnetDataCoordinator], SensorEntity):
             return None # Zgodnie z dokumentacją HA, powinno zwracać None lub STATE_UNAVAILABLE
 
         value = self.coordinator.data[self._index]
+        self._attr_translation_placeholders = {}
 
         # Mapowanie wartości dla specyficznych sensorów
         # API Index 1 (Python index 0): Status urządzenia
@@ -196,12 +198,18 @@ class ReqnetSensor(CoordinatorEntity[ReqnetDataCoordinator], SensorEntity):
                 4: "ventilation", 5: "purification", 6: "fireplace",
                 8: "manual_mode", 9: "intelligent_mode", 10: "efficiency_measurement_mode",
             }
-            return modes.get(value, "unknown_mode")
+            if value in modes:
+                return modes[value]
+            self._attr_translation_placeholders = {"value": str(value)}
+            return "unknown_mode"
 
         # API Index 14 (Python index 13): Status funkcji równoległej (grzanie/chłodzenie)
         if self._index == 13:
             statuses = {0: "inactive", 1: "heating", 2: "cooling"}
-            return statuses.get(value, "unknown_status")
+            if value in statuses:
+                return statuses[value]
+            self._attr_translation_placeholders = {"value": str(value)}
+            return "unknown_status"
 
         # API Index 40 (Python index 39): Wartość ByPassu
         if self._index == 39:
@@ -209,7 +217,10 @@ class ReqnetSensor(CoordinatorEntity[ReqnetDataCoordinator], SensorEntity):
                 0: "closed_manual", 1: "open_manual",
                 2: "closed_auto", 3: "open_auto",
             }
-            return bypass_status.get(value, "unknown_status")
+            if value in bypass_status:
+                return bypass_status[value]
+            self._attr_translation_placeholders = {"value": str(value)}
+            return "unknown_status"
 
         # API Index 72 (Python index 71): Detekcja wilgotności
         if self._index == 71:
@@ -222,6 +233,9 @@ class ReqnetSensor(CoordinatorEntity[ReqnetDataCoordinator], SensorEntity):
         # API Index 87 (Python index 86): Typ montażu
         if self._index == 86:
             types = {1: "left", 2: "right"}
-            return types.get(value, "unknown")
+            if value in types:
+                return types[value]
+            self._attr_translation_placeholders = {"value": str(value)}
+            return "unknown"
 
         return value
