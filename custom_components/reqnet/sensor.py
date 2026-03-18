@@ -20,6 +20,7 @@ from homeassistant.const import (
     UnitOfPower,
     UnitOfPressure, # Dodane dla ciśnienia/oporu
     UnitOfTime,
+    UnitOfVolumeFlowRate,
 )
 # Upewnij się, że DOMAIN i ReqnetDataCoordinator są poprawnie zdefiniowane/importowane
 from .const import DOMAIN # Zakładam, że DOMAIN jest zdefiniowany w .const
@@ -32,12 +33,12 @@ _LOGGER = logging.getLogger(__name__)
 SENSOR_DEFINITIONS: list[tuple[int, str, str | None, str | None, SensorDeviceClass | None, EntityCategory | None]] = [
     # --- Podstawowe odczyty ---
     (0, "device_status", None, "mdi:power", None, None), # API Index 1
-    (1, "max_supply_flow", "m³/h", "mdi:fan-plus", None, None), # API Index 2
+    (1, "max_supply_flow", UnitOfVolumeFlowRate.CUBIC_METERS_PER_HOUR, "mdi:fan-plus", None, None), # API Index 2
     (2, "current_temperature", UnitOfTemperature.CELSIUS, "mdi:thermometer", SensorDeviceClass.TEMPERATURE, None), # API Index 3
-    (3, "current_supply_flow", "m³/h", "mdi:fan", None, None), # API Index 4
-    (4, "current_extraction_flow", "m³/h", "mdi:fan-off", None, None), # API Index 5
-    (5, "supply_manual_mode", "m³/h", "mdi:fan-settings", None, None), # API Index 6
-    (6, "extraction_manual_mode", "m³/h", "mdi:fan-settings", None, None), # API Index 7
+    (3, "current_supply_flow", UnitOfVolumeFlowRate.CUBIC_METERS_PER_HOUR, "mdi:fan", None, None), # API Index 4
+    (4, "current_extraction_flow", UnitOfVolumeFlowRate.CUBIC_METERS_PER_HOUR, "mdi:fan-off", None, None), # API Index 5
+    (5, "supply_manual_mode", UnitOfVolumeFlowRate.CUBIC_METERS_PER_HOUR, "mdi:fan-settings", None, None), # API Index 6
+    (6, "extraction_manual_mode", UnitOfVolumeFlowRate.CUBIC_METERS_PER_HOUR, "mdi:fan-settings", None, None), # API Index 7
     (7, "humidity", PERCENTAGE, "mdi:water-percent", SensorDeviceClass.HUMIDITY, None), # API Index 8
     (8, "co2_level", CONCENTRATION_PARTS_PER_MILLION, "mdi:molecule-co2", "carbon_dioxide", None), # API Index 9
     (9, "schedule_status", None, "mdi:calendar-clock", None, None), # API Index 10 (0/1)
