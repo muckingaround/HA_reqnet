@@ -19,6 +19,7 @@ from homeassistant.const import (
     CONCENTRATION_PARTS_PER_MILLION,
     UnitOfPower,
     UnitOfPressure, # Dodane dla ciśnienia/oporu
+    UnitOfTime,
 )
 # Upewnij się, że DOMAIN i ReqnetDataCoordinator są poprawnie zdefiniowane/importowane
 from .const import DOMAIN # Zakładam, że DOMAIN jest zdefiniowany w .const
@@ -67,7 +68,7 @@ SENSOR_DEFINITIONS: list[tuple[int, str, str | None, str | None, SensorDeviceCla
     (72, "preheater_status", None, "mdi:radiator", None, None), # API Index 73 (0/1)
     (73, "antifreeze_system_status", None, "mdi:snowflake-melt", None, None), # API Index 74
     (74, "condensation_system_status", None, "mdi:water-boiler-alert", None, None), # API Index 75
-    (83, "filter_days_until_replacement", "dni", "mdi:air-filter", None, None), # API Index 84
+    (83, "filter_days_until_replacement", UnitOfTime.DAYS, "mdi:air-filter", None, None), # API Index 84
     (86, "mount_type", None, "mdi:tools", None, EntityCategory.DIAGNOSTIC), # API Index 87 (1-lewy, 2-prawy)
     (92, "overpressure_coefficient", PERCENTAGE, "mdi:arrow-expand-all", None, None), # API Index 93
 
