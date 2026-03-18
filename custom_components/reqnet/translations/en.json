@@ -24,7 +24,7 @@
       "supply_manual_mode": { "name": "Supply manual mode" },
       "extraction_manual_mode": { "name": "Extraction manual mode" },
       "humidity": { "name": "Air humidity" },
-      "co2_level": { "name": "CO<sub>2</sub> level" },
+      "co2_level": { "name": "CO₂ level" },
       "schedule_status": {
         "name": "Schedule status",
         "state": {
@@ -112,7 +112,7 @@
       "supply_fan_power": { "name": "Supply fan power" },
       "extraction_fan_power": { "name": "Extraction fan power" },
       "comfort_temperature_setpoint": { "name": "Comfort temperature setpoint" },
-      "co2_sensitivity": { "name": "CO2 sensitivity" },
+      "co2_sensitivity": { "name": "CO₂ sensitivity" },
       "higro_sensitivity": { "name": "HIGRO sensitivity" },
       "firmware_version_major": { "name": "Firmware version (major)" },
       "firmware_version_build": { "name": "Firmware version (build)" },
