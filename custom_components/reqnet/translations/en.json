@@ -18,13 +18,13 @@
         }
       },
       "max_supply_flow": { "name": "Maximum supply flow" },
-      "current_temperature": { "name": "Current temperature" },
+      "current_temperature": { "name": "Supply temperature" },
       "current_supply_flow": { "name": "Current supply flow" },
       "current_extraction_flow": { "name": "Current extraction flow" },
       "supply_manual_mode": { "name": "Supply manual mode" },
       "extraction_manual_mode": { "name": "Extraction manual mode" },
-      "humidity": { "name": "Humidity" },
-      "co2_level": { "name": "CO2 level" },
+      "humidity": { "name": "Air humidity" },
+      "co2_level": { "name": "CO<sub>2</sub> level" },
       "schedule_status": {
         "name": "Schedule status",
         "state": {
@@ -37,9 +37,9 @@
         "state": {
           "fast_heating": "Fast heating",
           "fast_cooling": "Fast cooling",
-          "vacation": "Vacation",
+          "vacation": "Holiday",
           "ventilation": "Ventilation",
-          "purification": "Purification",
+          "purification": "Cleansing",
           "fireplace": "Fireplace",
           "manual_mode": "Manual mode",
           "intelligent_mode": "Intelligent mode",
@@ -57,10 +57,10 @@
         }
       },
       "device_model": { "name": "Device model" },
-      "intake_temperature": { "name": "Intake temperature" },
-      "exhaust_duct_temperature": { "name": "Exhaust duct temperature" },
-      "supply_temperature": { "name": "Supply temperature" },
-      "extraction_temperature": { "name": "Extraction temperature" },
+      "intake_temperature": { "name": "Outdoor" },
+      "exhaust_duct_temperature": { "name": "Exhaust" },
+      "supply_temperature": { "name": "Supply" },
+      "extraction_temperature": { "name": "Indoor" },
       "temperature_after_heater_cooler": { "name": "Temperature after heater/cooler" },
       "gwc_temperature": { "name": "Ground heat exchanger temperature" },
       "room_temperature": { "name": "Room temperature" },
